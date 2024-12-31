@@ -3284,26 +3284,37 @@
 
 // approche that will make the main thread not doing any further work or exiting
 
-use std::{thread, thread::JoinHandle, time::Duration};
+// use std::{thread, thread::JoinHandle, time::Duration};
 
+// fn main() {
+//     let worker: JoinHandle<()> = thread::spawn(|| {
+//     for i in 1..=10 {
+//             println!("hi number {} from the spawned thread!", i);
+//             thread::sleep(Duration::from_millis(2));
+//         }
+//     });
 
+//     for i in 1..5 {
+//         println!("hi number {} from the main thread!", i);
+//         thread::sleep(Duration::from_millis(2));
+//     }
+
+//     worker.join().unwrap(); // unwraping because it returns a result
+// }
+
+use std::thread;
 fn main() {
-    let worker: JoinHandle<()> = thread::spawn(|| {
-    for i in 1..=10 {
-            println!("hi number {} from the spawned thread!", i);
-            thread::sleep(Duration::from_millis(2));
-        }
+    let v: Vec<i32> = vec![1, 2, 3];
+
+    // move is necessery to prevent error
+    // rust need to take v's ownership to ensure that v will not be dropped 
+    // before it uses it.
+    let worker: thread::JoinHandle<()> = thread::spawn( move || { 
+        println!("vector v is: {:?}", v);
     });
 
-    for i in 1..5 {
-        println!("hi number {} from the main thread!", i);
-        thread::sleep(Duration::from_millis(2));
-    }
-
-    worker.join().unwrap(); // unwraping because it returns a result
+    worker.join().unwrap();
 }
-
-
 
 
 
