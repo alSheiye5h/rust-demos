@@ -3302,20 +3302,35 @@
 //     worker.join().unwrap(); // unwraping because it returns a result
 // }
 
-use std::thread;
-fn main() {
-    let v: Vec<i32> = vec![1, 2, 3];
+// use std::thread;
+// fn main() {
+//     let v: Vec<i32> = vec![1, 2, 3];
 
-    // move is necessery to prevent error
-    // rust need to take v's ownership to ensure that v will not be dropped 
-    // before it uses it.
-    let worker: thread::JoinHandle<()> = thread::spawn( move || { 
-        println!("vector v is: {:?}", v);
-    });
+//     // move is necessery to prevent error
+//     // rust need to take v's ownership to ensure that v will not be dropped 
+//     // before it uses it.
+//     let worker: thread::JoinHandle<()> = thread::spawn( move || { 
+//         println!("vector v is: {:?}", v);
+//     });
 
-    worker.join().unwrap();
-}
+//     worker.join().unwrap();
+// }
 
+
+// use std::sync::mpsc;
+// use std::thread;
+
+// fn main() {
+//     let (tx, rx) = mpsc::channel();
+
+//     thread::spawn(move || {
+//         let msg: String = String::from("hi");
+//         tx.send(msg).unwrap();
+//     });
+
+//     let received: String = rx.recv().unwrap();
+//     println!("Got: {}", received);
+// }
 
 
 
