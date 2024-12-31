@@ -1,0 +1,27 @@
+donc keyna stack w lheap ; stack hia . donc stack rah earfinha kaytstockaw fiha lfunction l variable li 3arfin
+size dialhoum f compile time, par contre l heap li dynamic size hit stack read only donc lheap l sizes li
+kisgharo w ykbaro w eawtani l dynamic memorie allocation w deallocation,
+Stack:
+
+    The OS allocates a fixed amount of stack space when a program starts.
+    The Rust runtime manages the stack during the program's execution.
+
+Heap:
+
+    The OS provides system calls (brk, mmap, etc.) to allocate or expand the heap.
+    Rust interacts with the OS indirectly through the standard library's allocator.
+
+refCell smartPointers : represent single ownership over the data it hold b7al Box smartPointers ghir houwa lfer9 ana Box ki force borrowing rules fl compile time wlkn refCell ki force borrowing rules f run time ya3ni ila breakiti rules dial borrowing f runtime l progrmme ghay panic w ghaykhroj w default houwa check f compile time :
+
+    - Box<T> for allocating values on the heap
+    - Rc<T>, a reference counting type that enables multiple ownership
+    - Ref<T> and RefMut<T>, accessed through RefCell<T>, a type that enforces the borrowing rules at runtime instead of compile time
+
+---- line 3013 in index.rs ---- // in refCell we can take only one immutable reference
+t9der tkoun eandk mutable value ldakhl dial refCell wakha ykoun refCEll imutable li kansmiwha "interior mutability pattern" wlkn labghiti mutable value ldakhl dial Box khas hta l box ikoun mutable.
+
+---
+
+Rc<T> kat3ti multiple owners and RefCell<t> katmuti l immutable refence wlkn merra wehda ghancombiniwhoum . ---------- line 3089 -------------
+
+Cons : A Cons variant is commonly part of an enum that defines a recursive data structure, such as a linked list. The Cons variant holds an element and a reference (or a pointer) to the rest of the list.

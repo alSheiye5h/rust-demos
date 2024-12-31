@@ -1,0 +1,5 @@
+.vscode/*
+!.vscode/settings.json
+index
+xo_crate/target
+library_crate_root/target
