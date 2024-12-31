@@ -25,3 +25,14 @@ t9der tkoun eandk mutable value ldakhl dial refCell wakha ykoun refCEll imutable
 Rc<T> kat3ti multiple owners and RefCell<t> katmuti l immutable refence wlkn merra wehda ghancombiniwhoum . ---------- line 3089 -------------
 
 Cons : A Cons variant is commonly part of an enum that defines a recursive data structure, such as a linked list. The Cons variant holds an element and a reference (or a pointer) to the rest of the list.
+
+-- concurrency in rust :
+is doing more than one task in one time, by using threads where each thread is like a pipe holding a task.
+
+- fearless concurrency in rust : is concurrency but reduced the maximum possible of errors, means that rust try it's best to introduce errors at compile time rather than runtime, it handle's the concurrency safety by ensuring memorie safety and prevent concurrency problems by using ownership and type checking many concurrency probleme are flaged in compile time.
+
+--- so there is alot of types of concurrency : parralelisme and multitasking
+
+-Parallelism: This is a type of concurrency where tasks are executed simultaneously on multiple processing units (e.g., CPU cores). Tasks can truly run in parallel, which speeds up the overall process.
+
+-Multitasking: This is a type of concurrency where multiple tasks appear to be running at the same time, but they are often actually interleaved (switched back and forth rapidly) on a single processor (core). It doesn't necessarily mean tasks are running simultaneously; it just appears that way.
