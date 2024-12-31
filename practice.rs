@@ -3332,10 +3332,136 @@
 //     println!("Got: {}", received);
 // }
 
+// use std::sync::mpsc;
+// use std::{thread, time::Duration};
 
+// fn main() {
+//     let (tx, rx) = mpsc::channel();
 
+//     thread::spawn(move || {
+//         let vals: Vec<String> = vec![
+//             String::from("hi"),
+//             String::from("from"),
+//             String::from("the"),
+//             String::from("thread"),
+//         ];
 
+//         for val in vals {
+//             tx.send(val).unwrap();
+//             thread::sleep(Duration::from_millis(2000));
+//         }
+//     });
 
+//     for received in rx {
+//         println!("Got : {}", received);
+//     }
+// }
+
+// use std::sync::mpsc;
+// use std::{thread, time::Duration};
+
+// fn main() {
+//     let (tx, rx) = mpsc::channel();
+
+//     thread::spawn(move || {
+//         let vals: Vec<String> = vec![
+//             String::from("hi"),
+//             String::from("from"),
+//             String::from("spawned"),
+//             String::from("thread"),
+//         ];
+//         for val in vals {
+//             tx.send(val).unwrap();
+//             thread::sleep(Duration::from_millis(1000));
+//         }
+//     });
+
+//     for rec in rx {
+//         println!("Got : {}", rec);
+//     }
+// }
+
+// use std::sync::mpsc;
+// use std::{thread, time::Duration};
+
+// fn main() {
+//     let (tx, rx) = mpsc::channel();
+
+//     let second_tx = tx.clone();
+
+//     thread::spawn(move || {
+//         let vals: Vec<String> = vec![
+//             String::from("tx : hi"),
+//             String::from("tx : from"),
+//             String::from("tx : first"),
+//             String::from("tx : thread"),
+//         ];
+//         for val in vals {
+//             tx.send(val).unwrap();
+//             thread::sleep(Duration::from_millis(900));
+//         }
+//     });
+
+//     thread::spawn(move || {
+//         let vals: Vec<String> = vec![
+//             String::from("cloned : hi"),
+//             String::from("cloned : from"),
+//             String::from("cloned : second"),
+//             String::from("cloned : thread"),
+//         ];
+//         for val in vals {
+//             second_tx.send(val).unwrap();
+//             thread::sleep(Duration::from_millis(900));
+//         }
+//     });
+
+//     for msg in rx {
+//         println!("Got : {}", msg);
+//     }
+// }
+
+// use std::sync::{mpsc, Arc};
+// use std::thread;
+// use std::time::Duration;
+
+// fn main() {
+//     let (tx, rx) = mpsc::channel();
+
+//     let tx_arc = Arc::new(tx);
+
+//     let clonned_tx_1 = Arc::clone(&tx_arc);
+//     let clonned_tx_2 = Arc::clone(&tx_arc);
+
+//     thread::spawn(move || {
+//         let vals: Vec<String> = vec![
+//             String::from("tx1 : hi"),
+//             String::from("tx1 : from"),
+//             String::from("tx1 : tx clonned 1"),
+//             String::from("tx1 : !!!"),
+//         ];
+//         for val in vals {
+//             clonned_tx_1.send(val).unwrap();
+//             thread::sleep(Duration::from_millis(800));
+//         }
+//     });
+
+//     thread::spawn(move || {
+//         let vals: Vec<String> = vec![
+//             String::from("tx2 : hi"),
+//             String::from("tx2 : from"),
+//             String::from("tx2 : tx clonned 1"),
+//             String::from("tx2 : !!!"),
+//         ];
+//         for val in vals {
+//             clonned_tx_2.send(val).unwrap();
+//             thread::sleep(Duration::from_millis(800));
+//         }
+//     });
+
+//     for i in rx {
+//         println!("Got : {}", i);
+//     }
+// }
 
 
 
