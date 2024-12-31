@@ -3263,23 +3263,44 @@
 
 // threads
 
-use std::{thread, time::Duration};
+// use std::{thread, time::Duration};
+
+// fn main() {
+//     thread::spawn(|| { // creating a thread that will loop printing
+//         for i in 1..10 {
+//             println!("hi number {} from the spawned thread!", i);
+//             thread::sleep(Duration::from_millis(1)); // after each loop wait 1msc
+//         }
+//     });
+
+
+//     for i in 1..=5 { // the programme thread normal thread
+//         println!("hi number {} from the main thread!", i);
+//         thread::sleep(Duration::from_millis(1)); // samething
+//     }
+//     // when this loop ends the programme will exit not carring about
+//     // the spawned threads
+// }
+
+// approche that will make the main thread not doing any further work or exiting
+
+use std::{thread, thread::JoinHandle, time::Duration};
+
 
 fn main() {
-    thread::spawn(|| { // creating a thread that will loop printing
-        for i in 1..10 {
+    let worker: JoinHandle<()> = thread::spawn(|| {
+    for i in 1..=10 {
             println!("hi number {} from the spawned thread!", i);
-            thread::sleep(Duration::from_millis(1)); // after each loop wait 1msc
+            thread::sleep(Duration::from_millis(2));
         }
     });
 
-
-    for i in 1..=5 { // the programme thread normal thread
+    for i in 1..5 {
         println!("hi number {} from the main thread!", i);
-        thread::sleep(Duration::from_millis(1)); // samething
+        thread::sleep(Duration::from_millis(2));
     }
-    // when this loop ends the programme will exit not carring about
-    // the spawned threads
+
+    worker.join().unwrap(); // unwraping because it returns a result
 }
 
 
