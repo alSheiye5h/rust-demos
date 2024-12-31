@@ -1,5 +1,5 @@
 .vscode/*
 !.vscode/settings.json
-index
+practice
 xo_crate/target
 library_crate_root/target
