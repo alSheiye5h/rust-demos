@@ -3666,71 +3666,158 @@
 
 // fn main() {}
 
-pub trait Draw {
-    fn draw(&self);
-}
+// pub trait Draw {
+//     fn draw(&self);
+// }
 
-pub struct Screen {
-    pub components: Vec<Box<dyn Draw>>,
-}
+// pub struct Screen {
+//     pub components: Vec<Box<dyn Draw>>,
+// }
 
-impl Screen {
-    pub fn run(&self) {
-        for component in self.components.iter() {
-            component.draw();
-        }
-    }
-    pub fn new(v: Vec<Box<dyn Draw>>) -> Screen {
-        Screen { components: v }
-    }
-}
+// impl Screen {
+//     pub fn run(&self) {
+//         for component in self.components.iter() {
+//             component.draw();
+//         }
+//     }
+//     pub fn new(v: Vec<Box<dyn Draw>>) -> Screen {
+//         Screen { components: v }
+//     }
+// }
 
-pub struct Button {
-    height: u32,
-    width: u32,
-    label: String,
-}
-
-
-pub struct SelectBox {
-    height: u32,
-    width: u32,
-    options: Vec<String>,
-}
-
-impl Draw for Button {
-    fn draw(&self) {
-        println!("drawing");
-    }
-}
-
-impl Draw for SelectBox {
-    fn draw(&self) {
-        println!("drawing");
-    }
-}
-
-fn main() {
-    let button: Button = Button {
-        height: 15,
-        width: 30,
-        label: String::from("first"),
-    };
-    let selectbox: SelectBox = SelectBox {
-        height: 10,
-        width: 20,
-        options: vec![
-            String::from("true"),
-            String::from("false"),
-            String::from("neutral")
-        ]
-    };
-    let compo: Vec<Box<dyn Draw>> = vec![Box::new(button), Box::new(selectbox)];
-    let screen: Screen = Screen::new(compo );
-    screen.run();
+// pub struct Button {
+//     height: u32,
+//     width: u32,
+//     label: String,
+// }
 
 
-}
+// pub struct SelectBox {
+//     height: u32,
+//     width: u32,
+//     options: Vec<String>,
+// }
+
+// impl Draw for Button {
+//     fn draw(&self) {
+//         println!("drawing");
+//     }
+// }
+
+// impl Draw for SelectBox {
+//     fn draw(&self) {
+//         println!("drawing");
+//     }
+// }
+
+// fn main() {
+//     let button: Button = Button {
+//         height: 15,
+//         width: 30,
+//         label: String::from("first"),
+//     };
+//     let selectbox: SelectBox = SelectBox {
+//         height: 10,
+//         width: 20,
+//         options: vec![
+//             String::from("true"),
+//             String::from("false"),
+//             String::from("neutral")
+//         ]
+//     };
+//     let compo: Vec<Box<dyn Draw>> = vec![Box::new(button), Box::new(selectbox)];
+//     let screen: Screen = Screen::new(compo );
+//     screen.run();
+// }
+
+// trait Draw {
+//     fn draw(&self);
+// }
+
+// struct Screen {
+//     components: Vec<Box<dyn Draw>>,
+// }
+
+// impl Screen {
+//     fn run(&self) {
+//         for component in self.components.iter() {
+//             component.draw();
+//         }
+//     }
+
+//     fn new(vector: Vec<Box<dyn Draw>>) -> Screen {
+//         Screen {
+//             components: vector,
+//         }
+//     }
+// }
+
+// struct Button {
+//     height: u32,
+//     width: u32,
+//     label: String,
+// }
+
+// struct SelectBox {
+//     height: u32,
+//     width: u32,
+//     options: Vec<String>,
+// }
+
+// impl Draw for Button {
+//     fn draw(&self) {
+//         println!("Drawing button");
+//     }
+// }
+
+// impl Draw for SelectBox {
+//     fn draw(&self) {
+//         println!("Drawing for selectbox");
+//     }
+// }
+
+// fn main() {
+//     let screen: Screen = Screen::new(
+//         vec![
+//             Box::new(Button {
+//                 height: 7,
+//                 width: 13,
+//                 label: String::from("second"),
+//             }),
+//             Box::new(SelectBox {
+//                 height: 61,
+//                 width: 33,
+//                 options: vec![
+//                     String::from("yes"),
+//                     String::from("maybe"),
+//                     String::from("no"),
+//                 ]
+//             }),
+//         ]
+//     );
+
+//     screen.run();
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
