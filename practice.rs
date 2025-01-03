@@ -3463,12 +3463,91 @@
 //     }
 // }
 
+// concurrency shared data
+// Mutex is an abbreviation for mutual exclusion
+
+// use std::sync::Mutex;
+// use std::sync::MutexGuard;
+
+// fn main() {
+//     let data: String = String::from("data can be ");
+//     let data_num: i32 = 15;
 
 
+//     let mutex: Mutex<String> = Mutex::new(data);
+//     let mutex_num: Mutex<i32> = Mutex::new(data_num);
+    
+//     {
+//         let mut m: MutexGuard<String> = mutex.lock().unwrap();
+//         m.push_str("anything");
+//     }
+//     {
+//         let mut i: MutexGuard<i32> = mutex_num.lock().unwrap();
+//         *i += 6;
+//     }
+
+//     println!("{:?}", mutex);
+//     println!("{:?}", mutex_num);
+// }
+
+// use std::sync::Mutex;
+// use std::thread;
 
 
+// fn main() {
+//     let counter = Mutex::new(0);
+//     let mut handles = vec![];
 
+//     for _ in 0..10 {
+//         let handle = thread::spawn(move || {
+//             let mut num = counter.lock().unwrap();
 
+//             *num += 1;
+//         });
+//         handles.push(handle);
+//     }
+
+//     for handle in handles {
+//         handle.join().unwrap();
+//     }
+
+//     println!("Result: {}", *counter.lock().unwrap());
+// }
+
+// fn a() {
+//     let count: Mutex<i32> = Mutex::new(0);
+//     let handlers = vec![];
+
+//     // for _ in 0..10 {
+//     //     let handle = thread::spawn(move || {
+//     //         let mut num = count.lock().unwrap();
+//     //         *num += 1;
+//     //     });
+//     //     handlers.push(handle);
+//     // }
+//     for _ in 0..10 {
+//         let handle = thread::spawn(move || {
+//             let mut num = count.lock().unwrap();
+
+//             *num += 1;
+//         });
+//         handlers.push(handle);
+//     }
+
+//     for handler in handlers {
+//         println!("{:?}", handler);
+//     }
+
+//     for handle in handlers {
+//         handle.join().unwrap();
+//     }
+
+//     for handler in handlers {
+//         println!("{:?}", handler);
+//     }
+
+//     println!("result: {}", *count.lock().unwrap());
+// }
 
 
 
