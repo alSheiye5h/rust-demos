@@ -3549,55 +3549,123 @@
 //     println!("result: {}", *count.lock().unwrap());
 // }
 
-use std::sync::Mutex;
-use std::sync::MutexGuard;
-use std::thread;
+// use std::sync::{Arc, Mutex, MutexGuard};
+// use std::thread;
 
-fn main() {
-    let string: String = String::from("data here : ");
-    let num: i32 = 15;
+// fn main() {
+//     let counter: Arc<Mutex<i32>> = Arc::new(Mutex::new(0));
+//     let mut handlers = vec![];
+
+//     for _ in 0..10 {
+//         let mutex: Arc<Mutex<i32>> = Arc::clone(&counter);
+//         let handle = thread::spawn(move || {
+//             let mut m: MutexGuard<i32> = mutex.lock().unwrap();
+//             *m += 1
+//         });
+//         handlers.push(handle);
+//     }
+
+//     for handle in handlers {
+//         handle.join().unwrap();
+//     }
     
-    let num_mutex: Mutex<i32> = Mutex::new(num);
-    let string_mutex: Mutex<String> = Mutex::new(string);
+//     println!("result: {:?}", *counter.lock().unwrap());
+// }
 
-    let mut handlers = vec![];
+// use std::sync::{Arc, Mutex, MutexGuard};
+// use std::thread;
 
-    for _ in 0..10 {
-        let handle = thread::spawn(move || {
-            let mut m: MutexGuard<i32> = num_mutex.lock().unwrap();
-            *m += 1;
-        });
-        handlers.push(handle);
-    }
+// fn main() {
+//     let mutex: Arc<Mutex<String>> = Arc::new(Mutex::new(String::from("hello")));
+//     let mut handlers = vec![];
 
-    let word: Vec<char> = "anything !".chars().collect();
-    for i in 0..word.len() {
-        let handle = thread::spawn(move || {
-            let mut m: MutexGuard<String> = string_mutex.lock().unwrap();
-            m.push(word[i]);
-            
-        });
-        handlers.push(handle);
-    };
+//     for i in 0..10 {
+//         let mx: Arc<Mutex<String>> = Arc::clone(&mutex);
+//         let handle = thread::spawn(move || {
+//             let mut m: MutexGuard<String> = mx.lock().unwrap();
+//             if let Some(ch) = &"_world!!!!".get(i..i+1) {
+//                 m.push_str(ch); 
+//             }
+//         });
+//         handlers.push(handle);
+//     }
 
-    for handle in handlers {
-        handle.join().unwrap();
-    };
+//     for handle in handlers {
+//         handle.join().unwrap();
+//     }
+    
+//     println!("result: {:?}", *mutex.lock().unwrap());
+// }
 
-    let a = string_mutex.lock().unwrap();
-    let b = string_mutex.lock().unwrap();
+// pub struct AveragedCollection {
+//     list: Vec<i32>,
+//     average: f64,
+// }
 
-    println!("{:?}", a);
-    println!("{:?}", b);
+// impl AveragedCollection {
+//     fn add(&mut self, value: i32) {
+//         self.list.push(value);
+//         self.update_average();
+//     }
+
+//     fn remove(&mut self) -> Option<i32> {
+//         let result = self.list.pop();
+//         match result {
+//             Some(value) => {
+//                 self.update_average();
+//                 Some(value)
+//             },
+//             _ => None,
+//         }
+//     }
+
+//     fn average(&self) -> f64 {
+//         self.average
+//     }
+
+//     fn update_average(&mut self) {
+//         let total: i32 = self.list.iter().sum();
+//         self.average = total as f64 / self.list.len() as f64;
+//     }
+
+// }
+
+// fn main() {}
+
+
+struct AveragedCollection {
+    list: Vec<i32>,
+    average: f64,
 }
 
+impl AveragedCollection {
+    fn add(&mut self, value: i32) {
+        self.list.push(value);
+        self.update_average();
+    }
 
+    fn remove(&mut self) -> Option<i32> {
+        let result: Option<i32> = self.list.pop();
+        match result {
+            Some(value) => {
+                self.update_average();
+                Some(value)
+            },
+            _ => None,
+        }
+    }
 
+    fn average(&self) -> f64 {
+        self.average
+    }
 
+    fn update_average(&mut self) {
+        let total: i32 = self.list.iter().sum();
+        self.average = total as f64 / self.list.len() as f64;
+    }
+}
 
-
-
-
+fn main() {}
 
 
 
