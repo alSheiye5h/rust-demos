@@ -3549,7 +3549,47 @@
 //     println!("result: {}", *count.lock().unwrap());
 // }
 
+use std::sync::Mutex;
+use std::sync::MutexGuard;
+use std::thread;
 
+fn main() {
+    let string: String = String::from("data here : ");
+    let num: i32 = 15;
+    
+    let num_mutex: Mutex<i32> = Mutex::new(num);
+    let string_mutex: Mutex<String> = Mutex::new(string);
+
+    let mut handlers = vec![];
+
+    for _ in 0..10 {
+        let handle = thread::spawn(move || {
+            let mut m: MutexGuard<i32> = num_mutex.lock().unwrap();
+            *m += 1;
+        });
+        handlers.push(handle);
+    }
+
+    let word: Vec<char> = "anything !".chars().collect();
+    for i in 0..word.len() {
+        let handle = thread::spawn(move || {
+            let mut m: MutexGuard<String> = string_mutex.lock().unwrap();
+            m.push(word[i]);
+            
+        });
+        handlers.push(handle);
+    };
+
+    for handle in handlers {
+        handle.join().unwrap();
+    };
+
+    let a = string_mutex.lock().unwrap();
+    let b = string_mutex.lock().unwrap();
+
+    println!("{:?}", a);
+    println!("{:?}", b);
+}
 
 
 
