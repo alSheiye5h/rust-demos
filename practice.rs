@@ -3632,39 +3632,106 @@
 
 // fn main() {}
 
-pub struct AveragedCollection {
-    list: Vec<i32>,
-    average: f64,
+// pub struct AveragedCollection {
+//     list: Vec<i32>,
+//     average: f64,
+// }
+
+// impl AveragedCollection {
+//     fn add(&mut self, value: i32) {
+//         self.list.push(value);
+//         self.update_average();
+//     }
+
+//     fn remove(&mut self) -> Option<i32> {
+//         let result: Option<i32> = self.list.pop();
+//         match result {
+//             Some(value) => {
+//                 self.update_average();
+//                 Some(value)
+//             },
+//             _ => None,
+//         }
+//     }
+
+//     fn average(&self) -> f64 {
+//         self.average
+//     }
+
+//     fn update_average(&mut self) {
+//         let total: i32 = self.list.iter().sum();
+//         self.average = total as f64 / self.list.len() as f64;
+//     }
+// }
+
+// fn main() {}
+
+pub trait Draw {
+    fn draw(&self);
 }
 
-impl AveragedCollection {
-    fn add(&mut self, value: i32) {
-        self.list.push(value);
-        self.update_average();
-    }
+pub struct Screen {
+    pub components: Vec<Box<dyn Draw>>,
+}
 
-    fn remove(&mut self) -> Option<i32> {
-        let result: Option<i32> = self.list.pop();
-        match result {
-            Some(value) => {
-                self.update_average();
-                Some(value)
-            },
-            _ => None,
+impl Screen {
+    pub fn run(&self) {
+        for component in self.components.iter() {
+            component.draw();
         }
     }
-
-    fn average(&self) -> f64 {
-        self.average
-    }
-
-    fn update_average(&mut self) {
-        let total: i32 = self.list.iter().sum();
-        self.average = total as f64 / self.list.len() as f64;
+    pub fn new(v: Vec<Box<dyn Draw>>) -> Screen {
+        Screen { components: v }
     }
 }
 
-fn main() {}
+pub struct Button {
+    height: u32,
+    width: u32,
+    label: String,
+}
+
+
+pub struct SelectBox {
+    height: u32,
+    width: u32,
+    options: Vec<String>,
+}
+
+impl Draw for Button {
+    fn draw(&self) {
+        println!("drawing");
+    }
+}
+
+impl Draw for SelectBox {
+    fn draw(&self) {
+        println!("drawing");
+    }
+}
+
+fn main() {
+    let button: Button = Button {
+        height: 15,
+        width: 30,
+        label: String::from("first"),
+    };
+    let selectbox: SelectBox = SelectBox {
+        height: 10,
+        width: 20,
+        options: vec![
+            String::from("true"),
+            String::from("false"),
+            String::from("neutral")
+        ]
+    };
+    let compo: Vec<Box<dyn Draw>> = vec![Box::new(button), Box::new(selectbox)];
+    let screen: Screen = Screen::new(compo );
+    screen.run();
+
+
+}
+
 
 
 
