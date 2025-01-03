@@ -3632,8 +3632,7 @@
 
 // fn main() {}
 
-
-struct AveragedCollection {
+pub struct AveragedCollection {
     list: Vec<i32>,
     average: f64,
 }
