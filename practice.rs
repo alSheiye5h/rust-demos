@@ -3800,7 +3800,63 @@
 // }
 
 
+// struct Post<'a> {
+//     request: bool,
+//     approval: bool,
+//     content: &'a str,
+// }
 
+// impl<'a> Post<'a> {
+//     fn add_text(&mut self, txt: &'a str) {
+//         self.content = txt;
+//     }
+
+//     fn request_review(&mut self) {
+//         self.request = true;
+//     }
+
+//     fn approve(&mut self) {
+//         match self.request {
+//             true => {
+//                 self.approval = true;
+//                 self.request = false;
+//             },
+//             false => println!("request review first !"),
+//         }
+//     }
+
+//     fn content(&self) -> &'a str {
+//         match self.approval {
+//             true => self.content,
+//             false => {
+//                 println!("Need approval first");
+//                 ""
+//             },
+//         }
+//     }
+
+//     fn new() -> Post<'a> {
+//         Post {
+//             request: false,
+//             approval: false,
+//             content: "",
+//         }
+//     }
+// }
+
+// fn main() {
+//     let mut post = Post::new();
+
+//     post.add_text("I ate");
+//     assert_eq!("", post.content());
+
+//     post.request_review();
+//     assert_eq!("", post.content());
+
+//     post.approve();
+//     assert_eq!("I ate", post.content());
+//     println!("{}", post.content());
+// }
 
 
 
