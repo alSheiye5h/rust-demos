@@ -3858,98 +3858,110 @@
 //     println!("{}", post.content());
 // }
 
+// struct Post {
+//     state: Option<Box<dyn State>>,
+//     content: String,
+// }
 
+// impl Post {
+//     fn new() -> Post {
+//         Post {
+//             state: Some(Box::new(Draft {})),
+//             content: String::new(),
+//         }
+//     }
+//     fn add_text(&mut self, text: &str) {
+//         self.content.push_str(text);
+//     }
+//     fn request_review(&mut self) {
+//         if let Some(state) = self.state.take() { // khod lvalue li west state: Option<Draft> w dir blastha None
+//             self.state = Some(state.request_review()); // state li hia Draft dir fiha state.request_review() li ghtraje3 PendingReview
+//         }
+//     }
+//     fn approve(&mut self) {
+//         if let Some(state) = self.state.take() { // hna hayed lvalue li west state: Option<PendingReview> w hat blasta None
+//             self.state = Some(state.approve()); // state li hia PendingReview dir blastha PendingReview.approve() li ghatraje3 published
+//         }
+//     }
+//     fn content(&self) -> &str {
+//         self.state.as_ref().unwrap().content(self) // hna khoud reference dial state ida kanet Published farah ghat3ti lcontent apart rah les method kirej3o ""
+//     }
+// }
 
-struct Post {
-    state: Option<Box<dyn State>>,
-    content: String,
-}
+// struct Draft {}
+// struct PendingReview {}
+// struct Published {}
 
-impl Post {
-    fn new() -> Post {
-        Post {
-            state: Some(Box::new(Draft {})),
-            content: String::new(),
-        }
-    }
-    fn add_text(&mut self, text: &str) {
-        self.content.push_str(text);
-    }
-    fn request_review(&mut self) {
-        if let Some(state) = self.state.take() { // khod lvalue li west state: Option<Draft> w dir blastha None
-            self.state = Some(state.request_review()); // state li hia Draft dir fiha state.request_review() li ghtraje3 PendingReview
-        }
-    }
-    fn approve(&mut self) {
-        if let Some(state) = self.state.take() { // hna hayed lvalue li west state: Option<PendingReview> w hat blasta None
-            self.state = Some(state.approve()); // state li hia PendingReview dir blastha PendingReview.approve() li ghatraje3 published
-        }
-    }
-    fn content(&self) -> &str {
-        self.state.as_ref().unwrap().content(self) // hna khoud reference dial state ida kanet Published farah ghat3ti lcontent apart rah les method kirej3o ""
-    }
-}
+// trait State {
+//     fn request_review(self: Box<Self>) -> Box<dyn State>;
+//     fn approve(self: Box<Self>) -> Box<dyn State>;
+//     fn content<'a>(&self, post: &'a Post) -> &'a str;
+// }
 
-struct Draft {}
-struct PendingReview {}
-struct Published {}
+// impl State for Draft {
+//     fn request_review(self: Box<Self>) -> Box<dyn State> {
+//         Box::new(PendingReview {})
+//     }
+//     fn approve(self: Box<Self>) -> Box<dyn State> {
+//         self
+//     }
+//     fn content<'a>(&self, post: &'a Post) -> &'a str {
+//         ""
+//     }
+// }
 
-trait State {
-    fn request_review(self: Box<Self>) -> Box<dyn State>;
-    fn approve(self: Box<Self>) -> Box<dyn State>;
-    fn content<'a>(&self, post: &'a Post) -> &'a str;
-}
+// impl State for PendingReview {
+//     fn request_review(self: Box<Self>) -> Box<dyn State> {
+//         self
+//     }
+//     fn approve(self: Box<Self>) -> Box<dyn State> {
+//         Box::new(Published {})  
+//     }
+//     fn content<'a>(&self, post: &'a Post) -> &'a str {
+//         ""
+//     }
+// }
 
-impl State for Draft {
-    fn request_review(self: Box<Self>) -> Box<dyn State> {
-        Box::new(PendingReview {})
-    }
-    fn approve(self: Box<Self>) -> Box<dyn State> {
-        self
-    }
-    fn content<'a>(&self, post: &'a Post) -> &'a str {
-        ""
-    }
-}
+// impl State for Published {
+//     fn request_review(self: Box<Self>) -> Box<dyn State> {
+//         self
+//     }
+//     fn approve(self: Box<Self>) -> Box<dyn State> {
+//         self
+//     }
+//     fn content<'a>(&self, post: &'a Post) -> &'a str {
+//         &post.content
+//     }
+// }
 
-impl State for PendingReview {
-    fn request_review(self: Box<Self>) -> Box<dyn State> {
-        self
-    }
-    fn approve(self: Box<Self>) -> Box<dyn State> {
-        Box::new(Published {})  
-    }
-    fn content<'a>(&self, post: &'a Post) -> &'a str {
-        ""
-    }
-}
+// fn main() {
+//     let mut post: Post = Post::new();
 
-impl State for Published {
-    fn request_review(self: Box<Self>) -> Box<dyn State> {
-        self
-    }
-    fn approve(self: Box<Self>) -> Box<dyn State> {
-        self
-    }
-    fn content<'a>(&self, post: &'a Post) -> &'a str {
-        &post.content
-    }
-}
+//     post.add_text("Hello OOP !"); // hna zedna str
+//     assert_eq!("", post.content());
 
-fn main() {
-    let mut post: Post = Post::new();
+//     post.request_review(); // hna drna draft.request_review() li ghatraje3 PendingReview
+//     assert_eq!("", post.content());
 
-    post.add_text("Hello OOP !"); // hna zedna str
-    assert_eq!("", post.content());
+//     post.approve(); // hna drna PendingReview.approve() ghatraja3 Published
+//     assert_eq!("Hello OOP !", post.content()); // hna published rah kidispayo content
+// }
 
-    post.request_review(); // hna drna draft.request_review() li ghatraje3 PendingReview
-    assert_eq!("", post.content());
+// struct Point {
+//     x: i32,
+//     y: i32,
+// }
 
-    post.approve(); // hna drna PendingReview.approve() ghatraja3 Published
-    assert_eq!("Hello OOP !", post.content()); // hna published rah kidispayo content
-}
+// fn main() {
+//     let p = Point {x: 0, y: 7};
 
+//     let Point {x: a, y: b} = p;
+//     println!("x: {:?}, y: {:?}", a, b);
 
+//     if let Point {x: a, y: b} = p {
+//         println!("x: {:?}, y: {:?}", a, b);
+//     }
+// }
 
 
 
