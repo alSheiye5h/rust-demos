@@ -36,3 +36,84 @@ is doing more than one task in one time, by using threads where each thread is l
 -Parallelism: This is a type of concurrency where tasks are executed simultaneously on multiple processing units (e.g., CPU cores). Tasks can truly run in parallel, which speeds up the overall process.
 
 -Multitasking: This is a type of concurrency where multiple tasks appear to be running at the same time, but they are often actually interleaved (switched back and forth rapidly) on a single processor (core). It doesn't necessarily mean tasks are running simultaneously; it just appears that way.
+
+struct Post {
+state: Option<Box<dyn State>>,
+content: String,
+}
+
+impl Post {
+fn new() -> Post {
+Post {
+state: Some(Box::new(Draft {})),
+content: "".to_string(),
+}
+}
+
+    fn add_text(&mut self, text: &str) {
+        self.content.push_str(text);
+    }
+
+    fn request_review(&mut self) {
+        if let Some(state) = self.state.take() {
+            self.state = Some(state.request_review());
+        }
+    }
+
+}
+
+trait State {
+fn request_review(self: Box<Self>) -> Box<dyn State>;
+fn approve(self: Box<Self>) -> Box<dyn State>;
+fn content<'a>(&self, post: &'a Post) -> &'a str;
+}
+
+struct Draft {}
+
+impl State for Draft {
+fn request_review(self: Box<Self>) -> Box<dyn State> {
+Box::new(PendingReview {})
+}
+fn approve(self: Box<Self>) -> Box<dyn State> {
+self
+}
+fn content<'a>(&self, post: &'a Post) -> &'a str {
+""
+}
+}
+
+struct PendingReview {}
+
+impl State for PendingReview {
+fn request_review(self: Box<Self>) -> Box<dyn State> {
+self
+}
+
+    fn approve(self: Box<Self>) -> Box<dyn State> {
+        Box::new(Published  {})
+    }
+
+    fn content<'a>(&self, post: &'a Post) -> &'a str {
+        ""
+    }
+
+}
+
+struct Published {}
+
+impl State for Published {
+fn request_review(self: Box<Self>) -> Box<dyn State> {
+self
+}
+
+    fn approve(self: Box<Self>) -> Box<dyn State> {
+        self
+    }
+
+    fn content<'a>(&self, post: &'a Post) -> &'a str {
+        &post.content
+    }
+
+}
+
+fn main() {}
