@@ -3963,6 +3963,136 @@
 //     }
 // }
 
+// enum Color {
+//     Rgb(i32, i32, i32),
+//     Hsv(i32, i32, i32),
+// }
+
+// enum ChangeColor {
+//     Quit,
+//     Move,
+//     Write(String),
+//     Changecolor(Color),
+// }
+
+// fn main() {
+//     let color: ChangeColor = ChangeColor::Changecolor(Color::Hsv(2, 121, 255));
+    
+//     match color {
+//         ChangeColor::Quit => {
+//             println!("Quit");
+//         }
+//         ChangeColor::Move => {
+//             println!("Move");
+//         }
+//         ChangeColor::Changecolor(Color::Hsv(h, s, v)) => {
+//             println!("change color hsv: red {} green {} blue {}", h, s, v);
+//         }
+//         ChangeColor::Changecolor(Color::Rgb(r, g, b)) => {
+//             println!("change color hsv: red {} green {} blue {}", r, g, b);
+//         }
+//         _ => {
+//             println!("Write");
+//         }
+//     }
+// }
+
+// struct Point {
+//     x: i32,
+//     y: i32,
+// }
+
+// fn main() {
+//     let ((feet, inches), Point {x: a, y: b}) = ((3, 10), Point { x: 3, y: -10 });
+//     // let mut setting_value = Some(5);
+//     let mut setting_value = None;
+//     let new_setting_value = Some(10);
+
+//     match (setting_value, new_setting_value) {
+//         (Some(_), Some(_)) => {
+//             println!("Overwriting is not possible !");
+//         }
+//         _ => {
+//             setting_value = new_setting_value;
+//         }
+//     }
+//     println!("setting is {:?}", setting_value);
+// }
+
+// fn foo(_: i32, y: i32) {
+//     println!("y: {}", y);
+// }
+
+// fn main() {
+//     let numbers = (2, 4, 8, 16, 32);
+
+//     match numbers {
+//         (first, .., fifth) => {
+//             println!("Some numbers: {}, {}", first, fifth)
+//         }
+//         (.., fifth) => {
+//             println!("Some numbers: {}", fifth)
+//         }
+//         _ => println!("something"),
+//     }
+// }
+
+// fn main() {
+//     let s: Option<String> = Some(String::from("a normal string"));
+
+//     if let Some(_) = s {
+//         println!("Found a string");
+//     }
+
+//     println!("string: {:?}", s);
+// }
+
+// fn main() {
+//     struct Point {
+//         x: i32,
+//         y: i32,
+//         z: i32,
+//     }
+
+//     let origin: Point = Point {
+//         x: 0, 
+//         y: 6, 
+//         z: 0, 
+//     };
+
+//     match origin {
+//         // Point {x, ..} => println!("x is {}", x),
+
+//     }
+// }
+
+// struct Hello {
+//     id: i32, 
+// }
+
+// enum Message {
+//     Hello { id: i32 },
+// }
+
+// fn main() {
+//     let msg: Message = Message::Hello { id: 20 };
+
+//     match msg {
+//         Message::Hello {
+//             id: helloid @ 1..6, } => {
+//                 println!("0.6 id is {:?}", helloid);
+//             }
+//         Message::Hello {
+//             id: 6..=10,
+//         } => {
+//             println!("id range 6+");
+//         }
+//         Message::Hello { id } => {
+//             println!("id : {}", id);
+//         }
+//         }
+    
+// }
 
 
 
