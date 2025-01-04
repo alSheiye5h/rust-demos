@@ -4094,6 +4094,48 @@
     
 // }
 
+// fn main() {
+//     let mut num: i32 = 5;
+
+//     let r1 = &num as *const i32;
+//     let r2 = &mut num as *mut i32;
+
+//     unsafe {
+//         println!("r1 is: {}", *r1);
+//         println!("r2 is: {}", *r2);
+//     }
+// }
+
+
+// fn main() {
+//     let mut v: Vec<i32> = vec![1, 2, 3, 4, 5, 6];
+
+//     let r: &mut [i32] = &mut v[..];
+    
+
+//         // let (a: &mut [i32], b: &mut [i32]) = r.split_at_mut(3);
+//         let (a, b) = r.split_at_mut(3);
+    
+
+//     assert_eq!(a, &mut [1, 2, 3]);
+//     assert_eq!(a, &mut [4, 5, 6]);
+// }
+
+// fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
+//     let len: usize = slice.len();
+//     let ptr:  = slice as *mut i32;
+
+//     assert!(mid <= len);
+
+//     // (&mut slice[..mid], &mut slice[3..])
+
+//     unsafe {
+//         (
+//             std::slice::from_raw_parts(ptr, mid),
+//             std::slice::from_raw_parts(ptr.add(mid), len - mid),
+//         )
+//     }
+// }
 
 
 
