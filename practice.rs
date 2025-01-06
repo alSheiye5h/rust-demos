@@ -4138,6 +4138,15 @@
 // }
 
 
+// static mut counter: i32 = 5;
+
+// fn main() {
+//     unsafe {
+//         counter += 5;
+//         println!("counter: {}", counter); // also need to be in unsafe
+//     }
+// }
+
 
 
 
