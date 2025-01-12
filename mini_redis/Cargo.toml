@@ -11,3 +11,7 @@ bytes = "1"
 [[example]]
 name = "hello"
 path = "/home/vesper2/Documents/rust/mini_redis/src/example/hello-redis.rs"
+
+[[example]]
+name = "mutex"
+path = "/home/vesper2/Documents/rust/mini_redis/src/example/mutex.rs"
