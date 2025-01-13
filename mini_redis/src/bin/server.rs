@@ -6,15 +6,6 @@ use mini_redis::{Connection, Frame};
 
 type Db = Arc<Mutex<HashMap<String, Bytes>>>;
 
-type SharedDb = Arc<Vec<Mutex<HashMap<String, Vec<u8>>>>>;
-
-fn new_shared_db(num_shards: usize) -> SharedDb {
-    let mut db = Vec::with_capacity(num_shards);
-    for _ in 0..num_shards {
-        db.push(Mutex::new(HashMap::new()));
-    }
-    Arc::new(db)
-}
 
 #[tokio::main]
 async fn main() {
@@ -65,6 +56,15 @@ async fn process(socket: TcpStream, db: Db) {
 
 
 
+// type SharedDb = Arc<Vec<Mutex<HashMap<String, Vec<u8>>>>>;
+
+// fn new_shared_db(num_shards: usize) -> SharedDb {
+//     let mut db = Vec::with_capacity(num_shards);
+//     for _ in 0..num_shards {
+//         db.push(Mutex::new(HashMap::new()));
+//     }
+//     Arc::new(db)
+// }
 
 
 
